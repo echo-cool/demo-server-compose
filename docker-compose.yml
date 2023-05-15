@@ -48,6 +48,11 @@ services:
   oauth_center_application_prod:
     image: echocool/oauth_center_django:latest
     container_name: oauth_center_application_prod
+    deploy:
+      resources:
+        reservations:
+            cpus: '0.25'
+            memory: 128M
     environment:
       - DEBUG=False
       - VIRTUAL_HOST=oauth.yuyangwang.org,auth.yuyangwang.org
