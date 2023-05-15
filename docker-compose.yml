@@ -10,8 +10,22 @@ services:
       - offer_master_network
       - comp3019j_network
       - oath_center_network
+      - bdic3023j_network
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  bdic3023j-software-methodology-q-a-platform:
+    image: echocool/bdic3023j-software-methodology-q-a-platform:${VERSION:-latest}
+    container_name: bdic3023j-software-methodology-q-a-platform
+    environment:
+      - VIRTUAL_HOST=bdic3023j.demo.yuyangwang.org
+      - VIRTUAL_PORT=5000
+    expose:
+      - "5000"
+    networks:
+      - bdic3023j_network
+    restart: on-failure
+
   oauth_center_application:
     image: echocool/oauth_center_django:latest
     container_name: oauth_center_django
@@ -191,3 +205,4 @@ networks:
   offer_master_network:
   comp3019j_network:
   oath_center_network:
+  bdic3023j_network:
