@@ -12,8 +12,21 @@ services:
       - comp3019j_network
       - oath_center_network
       - bdic3023j_network
+      - instrument_shop_network
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  instrument_shop:
+    image: echocool/comp3030j_software_engineering_project_musical_instrument_shop:${VERSION:-latest}
+    container_name: comp3030j_software_engineering_project_musical_instrument_shop
+    environment:
+      - VIRTUAL_HOST=comp3030j.demo.yuyangwang.org
+      - VIRTUAL_PORT=8080
+    networks:
+      - instrument_shop_network
+    expose:
+      - "8080"
+    restart: on-failure
 
   bdic3023j-software-methodology-q-a-platform:
     image: echocool/bdic3023j-software-methodology-q-a-platform:${VERSION:-latest}
@@ -32,7 +45,7 @@ services:
     container_name: oauth_center_django
     environment:
       - DEBUG=False
-      - VIRTUAL_HOST=oauth-center.demo.yuyangwang.org
+      - VIRTUAL_HOST=oauth_center_django.demo.yuyangwang.org
       - VIRTUAL_PORT=8080
     expose:
       - "8080"
@@ -208,3 +221,4 @@ networks:
   comp3019j_network:
   oath_center_network:
   bdic3023j_network:
+  instrument_shop_network:
