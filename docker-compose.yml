@@ -66,7 +66,7 @@ services:
     container_name: oauth_center_django
     environment:
       - DEBUG=False
-      - VIRTUAL_HOST=oauth_center_django.demo.yuyangwang.org,oauth.yuyangwang.org,auth.yuyangwang.org
+      - VIRTUAL_HOST=oauth.demo.yuyangwang.org,oauth.yuyangwang.org,auth.yuyangwang.org
       - VIRTUAL_PORT=8080
     expose:
       - "8080"
