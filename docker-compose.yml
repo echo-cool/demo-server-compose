@@ -3,6 +3,7 @@ services:
   # Global services
   nginx-proxy:
     image: echocool/nginx-proxy
+    privileged: true
     ports:
       - "80:80"
       - "443:443"
@@ -146,6 +147,7 @@ services:
 
   fyp_offer_master_portainer:
     image: portainer/portainer-ce
+    privileged: true
     restart: always
     expose:
       - "9000"
