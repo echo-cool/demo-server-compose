@@ -13,6 +13,7 @@ services:
       - oath_center_network
       - bdic3023j_network
       - instrument_shop_network
+      - bdic3025j_network
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
@@ -234,3 +235,4 @@ networks:
   oath_center_network:
   bdic3023j_network:
   instrument_shop_network:
+  bdic3025j_network:
