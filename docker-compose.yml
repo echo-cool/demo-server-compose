@@ -32,7 +32,7 @@ services:
 
   instrument_shop:
     image: echocool/comp3030j_software_engineering_project_musical_instrument_shop:${VERSION:-latest}
-    container_name: comp3030j_software_engineering_project_musical_instrument_shop
+    container_name: instrument_shop
     environment:
       - VIRTUAL_HOST=comp3030j.demo.yuyangwang.org
       - VIRTUAL_PORT=8080
