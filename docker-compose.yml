@@ -9,8 +9,26 @@ services:
     networks:
       - offer_master_network
       - comp3019j_network
+      - oath_center_network
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+  oauth_center_application:
+    image: echocool/oauth_center_django:latest
+    container_name: oauth_center_django
+    environment:
+      - DEBUG=False
+      - VIRTUAL_HOST=oauth-center.demo.yuyangwang.org
+      - VIRTUAL_PORT=8080
+    expose:
+      - "8080"
+    networks:
+      - oath_center_network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/test/health/" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: on-failure
 
   comp3019j-web-application-development-grocery-list-website:
     image: echocool/comp3019j-web-application-development-grocery-list-website:${VERSION:-latest}
@@ -20,7 +38,7 @@ services:
     expose:
       - "5000"
     environment:
-      - VIRTUAL_HOST=comp3032j.demo.yuyangwang.org
+      - VIRTUAL_HOST=comp3019j.demo.yuyangwang.org
       - VIRTUAL_PORT=5000
     restart: on-failure
 
@@ -172,3 +190,4 @@ volumes:
 networks:
   offer_master_network:
   comp3019j_network:
+  oath_center_network:
