@@ -17,6 +17,7 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
+
   bdic3025j-des-cipher:
     image: echocool/bdic3025j-security-privacy-des-algorithm-cipher:${VERSION:-latest}
     container_name: bdic3025j-security-privacy-des-algorithm-cipher
@@ -33,7 +34,7 @@ services:
     image: echocool/comp3030j_software_engineering_project_musical_instrument_shop:${VERSION:-latest}
     container_name: comp3030j_software_engineering_project_musical_instrument_shop
     environment:
-      - VIRTUAL_HOST=comp3030j.demo.yuyangwang.org
+      - VIRTUAL_HOST=comp3030j.demo.yuyangwang.org,oauth.yuyangwang.org,auth.yuyangwang.org
       - VIRTUAL_PORT=8080
     networks:
       - instrument_shop_network
