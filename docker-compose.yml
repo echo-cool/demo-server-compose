@@ -134,7 +134,7 @@ services:
       - DB_PASSWORD=offermaster
       - DB_DRIVER=com.mysql.cj.jdbc.Driver
       - DB_PLATFORM=
-      - OAUTH_ECHOCOOL_REDIRECT_URL=http://ipa-008.ucd.ie/login
+      - OAUTH_ECHOCOOL_REDIRECT_URL=http://comp3032j.demo.yuyangwang.org/login
     expose:
       - "8080"
     networks:
