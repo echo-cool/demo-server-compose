@@ -7,6 +7,13 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    depends_on:
+      - bdic3025j-des-cipher
+      - instrument_shop
+      - bdic3023j-software-methodology-q-a-platform
+      - oauth_center_application
+      - comp3019j-web-application-development-grocery-list-website
+      - fyp_offer_master_nginx
     networks:
       - offer_master_network
       - comp3019j_network
