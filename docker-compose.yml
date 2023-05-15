@@ -1,0 +1,174 @@
+version: '3'
+services:
+  # Global services
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - offer_master_network
+      - comp3019j_network
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  comp3019j-web-application-development-grocery-list-website:
+    image: echocool/comp3019j-web-application-development-grocery-list-website:${VERSION:-latest}
+    container_name: comp3019j-web-application-development-grocery-list-website
+    networks:
+      - comp3019j_network
+    expose:
+      - "5000"
+    environment:
+      - VIRTUAL_HOST=comp3032j.demo.yuyangwang.org
+      - VIRTUAL_PORT=5000
+    restart: on-failure
+
+  # Offer master project
+  fyp_offer_master_nginx:
+    image: echocool/fyp_offer_master_nginx:${VERSION:-latest}
+    container_name: fyp_offer_master_reverse_proxy
+    depends_on:
+      - fyp_offer_master_springboot_admin
+      - fyp_offer_master_springboot
+      - fyp_offer_master_vue_user
+      - fyp_offer_master_vue_admin
+      - fyp_offer_master_portainer
+    expose:
+      - "80"
+      - "443"
+    environment:
+      - VIRTUAL_HOST=comp3032j.demo.yuyangwang.org
+      - VIRTUAL_PORT=80
+    networks:
+      - offer_master_network
+    restart: on-failure
+
+  fyp_offer_master_springboot_admin:
+    image: echocool/fyp_offer_master_springboot_admin:${VERSION:-latest}
+    container_name: fyp_offer_master_springboot_admin
+    expose:
+      - "8081"
+    networks:
+      - offer_master_network
+    restart: on-failure
+
+  # springboot backend
+  fyp_offer_master_springboot:
+    image: echocool/fyp_offer_master_springboot:${VERSION:-latest}
+    container_name: fyp_offer_master_springboot
+    depends_on:
+      fyp_offer_master_db:
+        condition: service_healthy
+    environment:
+      - SERVER_ADDRESS=fyp_offer_master_springboot
+      - DB_URL=jdbc:mysql://fyp_offer_master_db:3306/offermaster
+      - DB_USERNAME=root
+      - DB_PASSWORD=offermaster
+      - DB_DRIVER=com.mysql.cj.jdbc.Driver
+      - DB_PLATFORM=
+      - OAUTH_ECHOCOOL_REDIRECT_URL=http://ipa-008.ucd.ie/login
+    expose:
+      - "8080"
+    networks:
+      - offer_master_network
+    restart: on-failure
+
+
+  # user portal
+  fyp_offer_master_vue_user:
+    image: echocool/fyp_offer_master_vue_user:${VERSION:-latest}
+    container_name: fyp_offer_master_vue_user
+    depends_on:
+      - fyp_offer_master_springboot
+    expose:
+      - "8080"
+    networks:
+      - offer_master_network
+    restart: on-failure
+
+
+  # admin portal
+  fyp_offer_master_vue_admin:
+    image: echocool/fyp_offer_master_vue_admin:${VERSION:-latest}
+    container_name: fyp_offer_master_vue_admin
+    depends_on:
+      - fyp_offer_master_springboot
+    expose:
+      - "8080"
+    networks:
+      - offer_master_network
+    restart: on-failure
+
+
+  fyp_offer_master_django_ml:
+    image: echocool/fyp_offer_master_django_ml:${VERSION:-latest}
+    container_name: fyp_offer_master_django_ml
+    depends_on:
+      - fyp_offer_master_springboot
+    expose:
+      - "8080"
+    networks:
+      - offer_master_network
+    restart: on-failure
+
+  fyp_offer_master_portainer:
+    image: portainer/portainer-ce
+    restart: always
+    expose:
+      - "9000"
+    ports:
+      - "8800:8000"
+      - "9900:9000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`ipa-008.ucd.ie`) && PathPrefix(`/portainer`)"
+      - "traefik.http.middlewares.portainer-stripprefix.stripprefix.prefixes=/portainer"
+      - "traefik.http.routers.whoami.middlewares=portainer-stripprefix@docker"
+      - "traefik.http.routers.whoami.entrypoints=web-secure"
+      - "traefik.http.routers.whoami.tls=false"
+      - "traefik.http.services.whoami.loadbalancer.server.scheme=http"
+      - "traefik.http.services.whoami.loadbalancer.server.port=9000"
+    networks:
+      - offer_master_network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - fyp_offer_master_portainer_data_volume:/data
+
+
+  fyp_offer_master_db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=offermaster
+      - MYSQL_ROOT_PASSWORD=offermaster
+    expose:
+      - "3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 5s
+      retries: 100
+    networks:
+      - offer_master_network
+
+  fyp_offer_master_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: fyp_offer_master_phpmyadmin
+    environment:
+      PMA_HOST: fyp_offer_master_db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+      PMA_ABSOLUTE_URI: http://ipa-008.ucd.ie/phpmyadmin
+    restart: always
+    networks:
+      - offer_master_network
+    ports:
+      - "8088:80"
+
+volumes:
+  fyp_offer_master_db_data_volume:
+  fyp_offer_master_portainer_data_volume:
+
+networks:
+  offer_master_network:
+  comp3019j_network:
