@@ -17,10 +17,10 @@ services:
       - oauth_center_application_demo
     networks:
       - offer_master_network
-      - comp3019j_network
-      - oath_center_network
-      - bdic3023j_network
       - instrument_shop_network
+      - oath_center_network
+      - comp3019j_network
+      - bdic3023j_network
       - bdic3025j_network
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
