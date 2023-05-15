@@ -169,7 +169,7 @@ services:
 
 
   fyp_offer_master_db:
-    image: mysql:8.0
+    image: hsheth2/mysql-low-memory:8.0
     restart: always
     environment:
       - MYSQL_DATABASE=offermaster
