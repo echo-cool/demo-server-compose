@@ -62,7 +62,6 @@ services:
     networks:
       - maintenance_network
     environment:
-      - DEBUG=False
       - VIRTUAL_HOST=log.demo.yuyangwang.org
       - LETSENCRYPT_HOST=log.demo.yuyangwang.org
       - VIRTUAL_PORT=8080
