@@ -19,7 +19,6 @@ services:
       - oauth_center_application_prod
       - oauth_center_application_demo
       - jupyter_notebook_reader
-      - dozzle
     networks:
       - offer_master_network
       - instrument_shop_network
@@ -53,20 +52,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     network_mode: bridge
     restart: always
-
-  dozzle:
-    container_name: dozzle
-    image: amir20/dozzle:latest
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - maintenance_network
-    environment:
-      - VIRTUAL_HOST=log.demo.yuyangwang.org
-      - LETSENCRYPT_HOST=log.demo.yuyangwang.org
-      - VIRTUAL_PORT=8080
-    expose:
-      - "8080"
 
   oauth_center_application_prod:
     image: echocool/oauth_center_django:latest
