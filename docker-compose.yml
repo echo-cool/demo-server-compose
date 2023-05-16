@@ -19,6 +19,7 @@ services:
       - oauth_center_application_prod
       - oauth_center_application_demo
       - jupyter_notebook_reader
+      - dozzle
     networks:
       - offer_master_network
       - instrument_shop_network
@@ -27,6 +28,7 @@ services:
       - bdic3023j_network
       - bdic3025j_network
       - jupyter_notebook_reader_network
+      - maintenance_network
     volumes:
       - conf:/etc/nginx/conf.d
       - vhost:/etc/nginx/vhost.d
@@ -57,6 +59,8 @@ services:
     image: amir20/dozzle:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - maintenance_network
     environment:
       - DEBUG=False
       - VIRTUAL_HOST=log.demo.yuyangwang.org
@@ -331,3 +335,4 @@ networks:
   instrument_shop_network:
   bdic3025j_network:
   jupyter_notebook_reader_network:
+  maintenance_network:
