@@ -7,6 +7,8 @@ services:
     labels:
       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
     privileged: true
+    environment:
+      - HTTPS_METHOD=noredirect
     ports:
       - "80:80"
       - "443:443"
