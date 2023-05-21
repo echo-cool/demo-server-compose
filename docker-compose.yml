@@ -383,6 +383,7 @@ volumes:
   influxdb-lib:
   grafana-lib:
   grafana-log:
+  prometheus_data:
 
 networks:
   offer_master_network:
