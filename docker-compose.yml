@@ -325,6 +325,25 @@ services:
     restart: always
     privileged: true
 
+  prometheus:
+    container_name: prometheus
+    hostname: prometheus
+    image: prom/prometheus
+    environment:
+      - VIRTUAL_HOST=prometheus.demo.yuyangwang.org
+      - LETSENCRYPT_HOST=prometheus.demo.yuyangwang.org
+      - VIRTUAL_PORT=9090
+    networks:
+      - grafana_network
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/alert_rules.yml:/etc/prometheus/alert_rules.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    expose:
+      - "9090"
+
   grafana:
     container_name: grafana
     image: grafana/grafana-oss:9.4.9
