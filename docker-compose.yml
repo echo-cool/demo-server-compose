@@ -32,6 +32,7 @@ services:
       - maintenance_network
       - grafana_network
     volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - conf:/etc/nginx/conf.d
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
