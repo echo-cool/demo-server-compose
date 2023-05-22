@@ -7,6 +7,13 @@ services:
     labels:
       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
     privileged: true
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+        limits:
+          memory: 256M
     environment:
       - HTTPS_METHOD=noredirect
     ports:
@@ -84,6 +91,10 @@ services:
   jupyter_notebook_reader:
     image: echocool/jupyter_notebook_reader:${VERSION:-latest}
     container_name: jupyter_notebook_reader
+    deploy:
+      resources:
+        limits:
+          memory: 128M
     environment:
       - VIRTUAL_HOST=jupyter.demo.yuyangwang.org,jupyter-reader.demo.yuyangwang.org
       - LETSENCRYPT_HOST=jupyter.demo.yuyangwang.org,jupyter-reader.demo.yuyangwang.org
@@ -124,6 +135,10 @@ services:
   instrument_shop:
     image: echocool/comp3030j_software_engineering_project_musical_instrument_shop:${VERSION:-latest}
     container_name: instrument_shop
+    deploy:
+      resources:
+        limits:
+          memory: 128M
     environment:
       - VIRTUAL_HOST=comp3030j.demo.yuyangwang.org,instrument-shop.demo.yuyangwang.org
       - LETSENCRYPT_HOST=comp3030j.demo.yuyangwang.org,instrument-shop.demo.yuyangwang.org
@@ -138,6 +153,10 @@ services:
   bdic3023j-software-methodology-q-a-platform:
     image: echocool/bdic3023j-software-methodology-q-a-platform:${VERSION:-latest}
     container_name: bdic3023j-software-methodology-q-a-platform
+    deploy:
+      resources:
+        limits:
+          memory: 128M
     environment:
       - VIRTUAL_HOST=bdic3023j.demo.yuyangwang.org,qa.demo.yuyangwang.org
       - LETSENCRYPT_HOST=bdic3023j.demo.yuyangwang.org,qa.demo.yuyangwang.org
@@ -153,6 +172,10 @@ services:
   comp3019j-web-application-development-grocery-list-website:
     image: echocool/comp3019j-web-application-development-grocery-list-website:${VERSION:-latest}
     container_name: comp3019j-web-application-development-grocery-list-website
+    deploy:
+      resources:
+        limits:
+          memory: 128M
     networks:
       - comp3019j_network
     expose:
@@ -244,6 +267,10 @@ services:
   fyp_offer_master_django_ml:
     image: echocool/fyp_offer_master_django_ml:${VERSION:-latest}
     container_name: fyp_offer_master_django_ml
+    deploy:
+      resources:
+        limits:
+          memory: 128M
     depends_on:
       - fyp_offer_master_springboot
     expose:
