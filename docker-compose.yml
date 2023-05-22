@@ -411,7 +411,7 @@ services:
     depends_on:
       - node-exporter
       - nginx-exporter
-      - cadvisor
+#      - cadvisor
     deploy:
       resources:
         limits:
@@ -505,23 +505,23 @@ services:
       - grafana_network
     restart: always
 
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor
-    deploy:
-      mode: global
-      resources:
-        limits:
-          memory: 128M
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    expose:
-      - "8080"
-    networks:
-      - grafana_network
-    restart: always
+#  cadvisor:
+#    image: gcr.io/cadvisor/cadvisor
+#    deploy:
+#      mode: global
+#      resources:
+#        limits:
+#          memory: 128M
+#    volumes:
+#      - /:/rootfs:ro
+#      - /var/run:/var/run:rw
+#      - /sys:/sys:ro
+#      - /var/lib/docker/:/var/lib/docker:ro
+#    expose:
+#      - "8080"
+#    networks:
+#      - grafana_network
+#    restart: always
 
 
 volumes:
