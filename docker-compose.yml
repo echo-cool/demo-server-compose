@@ -210,6 +210,10 @@ services:
   fyp_offer_master_springboot_admin:
     image: echocool/fyp_offer_master_springboot_admin:${VERSION:-latest}
     container_name: fyp_offer_master_springboot_admin
+    deploy:
+      resources:
+        limits:
+          memory: 256M
     expose:
       - "8081"
     networks:
@@ -220,6 +224,10 @@ services:
   fyp_offer_master_springboot:
     image: echocool/fyp_offer_master_springboot:${VERSION:-latest}
     container_name: fyp_offer_master_springboot
+    deploy:
+      resources:
+        limits:
+          memory: 256M
     depends_on:
       fyp_offer_master_db:
         condition: service_healthy
@@ -283,6 +291,10 @@ services:
     image: portainer/portainer-ce
     privileged: true
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 128M
     expose:
       - "9000"
     ports:
@@ -307,6 +319,10 @@ services:
   fyp_offer_master_db:
     image: hsheth2/mysql-low-memory:8.0
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 128M
     environment:
       - MYSQL_DATABASE=offermaster
       - MYSQL_ROOT_PASSWORD=offermaster
@@ -322,6 +338,10 @@ services:
   fyp_offer_master_phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: fyp_offer_master_phpmyadmin
+    deploy:
+      resources:
+        limits:
+          memory: 128M
     environment:
       PMA_HOST: fyp_offer_master_db
       PMA_PORT: 3306
