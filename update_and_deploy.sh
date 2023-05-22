@@ -8,7 +8,7 @@ else
     echo "Config is invalid"
     exit 1
 fi
-docker-compose down -v --remove-orphans
+docker-compose down --remove-orphans
 docker-compose pull
 docker-compose up -d --no-build --remove-orphans
 # if success
