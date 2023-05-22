@@ -490,7 +490,8 @@ services:
 
   nginx-exporter:
     image: nginx/nginx-prometheus-exporter:latest
-    depends_on: nginx-proxy
+    depends_on:
+      - nginx-proxy
     deploy:
       mode: global
       resources:
