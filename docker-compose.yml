@@ -452,8 +452,6 @@ services:
       - ./grafana/etc:/etc/grafana:ro
       - grafana-lib:/var/lib/grafana
       - grafana-log:/var/log/grafana
-    links:
-      - influxdb:influxdb
     env_file:
       # BE SURE TO CHANGE THIS LINE BEFORE GOING TO PRODUCTION
       - ./grafana.env
@@ -461,6 +459,7 @@ services:
       - "3000"
     depends_on:
       - influxdb
+      - prometheus
     restart: always
     privileged: true
 
