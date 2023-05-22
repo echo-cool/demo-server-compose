@@ -422,6 +422,7 @@ services:
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.size=512MB'
     expose:
       - "9090"
 
