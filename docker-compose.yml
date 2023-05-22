@@ -492,7 +492,7 @@ services:
         limits:
           memory: 128M
     command:
-      - '-nginx.scrape-uri=http://nginx-proxy:8080/stub_status'
+      - '-nginx.scrape-uri=http://nginx-proxy:8080/status'
     expose:
       - "9113"
     networks:
