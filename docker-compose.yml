@@ -19,6 +19,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    expose:
+      - "8080" # Only for stub_status
     depends_on:
       - bdic3025j-des-cipher
       - instrument_shop
@@ -478,6 +480,21 @@ services:
       - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
     expose:
       - "9100"
+    networks:
+      - grafana_network
+    restart: always
+
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    deploy:
+      mode: global
+      resources:
+        limits:
+          memory: 128M
+    command:
+      - '-nginx.scrape-uri=http://nginx-proxy:8080/stub_status'
+    expose:
+      - "9113"
     networks:
       - grafana_network
     restart: always
