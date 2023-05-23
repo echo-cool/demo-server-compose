@@ -13,6 +13,7 @@ services:
           memory: 256M
     environment:
       - HTTPS_METHOD=noredirect
+      - HSTS=off
     ports:
       - "80:80"
     expose:
