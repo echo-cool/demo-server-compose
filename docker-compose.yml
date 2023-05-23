@@ -9,9 +9,6 @@ services:
     privileged: true
     deploy:
       resources:
-        reservations:
-          cpus: '0.25'
-          memory: 64M
         limits:
           memory: 256M
     environment:
@@ -75,9 +72,6 @@ services:
     container_name: oauth_center_application_prod
     deploy:
       resources:
-        reservations:
-          cpus: '0.25'
-          memory: 128M
         limits:
           memory: 256M
     environment:
