@@ -15,7 +15,6 @@ services:
       - HTTPS_METHOD=nohttps
     ports:
       - "80:80"
-      - "443:443"
     expose:
       - "8080" # Only for stub_status
     depends_on:
