@@ -136,7 +136,7 @@ services:
         limits:
           memory: 128M
     environment:
-      - VIRTUAL_HOST=^bdic3025j\.demo\.*[a-zA-Z0-9]*.*\.yuyangwang\.org,^des\.demo\.*[a-zA-Z0-9]*.*\.yuyangwang\.org
+      - VIRTUAL_HOST=^bdic3025j\.demo\.*[a-zA-Z0-9]*.*\.yuyangwang\.org
 #      - VIRTUAL_HOST=bdic3025j.demo.yuyangwang.org,des.demo.yuyangwang.org
       - LETSENCRYPT_HOST=bdic3025j.demo.yuyangwang.org,des.demo.yuyangwang.org
       - VIRTUAL_PORT=80
