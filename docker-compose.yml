@@ -12,7 +12,7 @@ services:
         limits:
           memory: 256M
     environment:
-      - HTTPS_METHOD=nohttps
+      - HTTPS_METHOD=noredirect
     ports:
       - "80:80"
     expose:
@@ -45,26 +45,26 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     restart: always
 
-  acme-companion:
-    image: nginxproxy/acme-companion
-    container_name: nginx-proxy-acme
-    deploy:
-      resources:
-        limits:
-          memory: 128M
-    depends_on:
-      - nginx-proxy
-    environment:
-      - DEFAULT_EMAIL=me@yuyangwang.org
-    volumes:
-      - conf:/etc/nginx/conf.d
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      - ./certs:/etc/nginx/certs:rw
-      - acme:/etc/acme.sh
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    network_mode: bridge
-    restart: always
+#  acme-companion:
+#    image: nginxproxy/acme-companion
+#    container_name: nginx-proxy-acme
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 128M
+#    depends_on:
+#      - nginx-proxy
+#    environment:
+#      - DEFAULT_EMAIL=me@yuyangwang.org
+#    volumes:
+#      - conf:/etc/nginx/conf.d
+#      - vhost:/etc/nginx/vhost.d
+#      - html:/usr/share/nginx/html
+#      - ./certs:/etc/nginx/certs:rw
+#      - acme:/etc/acme.sh
+#      - /var/run/docker.sock:/var/run/docker.sock:ro
+#    network_mode: bridge
+#    restart: always
 #^oauth\.demo\.*[a-zA-Z0-9]*.*\.yuyangwang\.org
   oauth_center_application_prod:
     image: echocool/oauth_center_django:latest
