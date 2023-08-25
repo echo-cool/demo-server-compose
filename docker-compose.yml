@@ -159,7 +159,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 128M
+          memory: 512M
     networks:
       - comp3019j_network
     expose:
@@ -316,7 +316,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 128M
+          memory: 256M
     environment:
       - MYSQL_DATABASE=offermaster
       - MYSQL_ROOT_PASSWORD=offermaster
