@@ -124,7 +124,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 128M
+          memory: 512M
     environment:
       - VIRTUAL_HOST=~^comp3030j\.demo\.*[a-zA-Z0-9]*.*\.yuyangwang\.org
       - VIRTUAL_PORT=8080
@@ -141,7 +141,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 128M
+          memory: 512M
     environment:
       - VIRTUAL_HOST=~^bdic3023j\.demo\.*[a-zA-Z0-9]*.*\.yuyangwang\.org
       - VIRTUAL_PORT=5000
